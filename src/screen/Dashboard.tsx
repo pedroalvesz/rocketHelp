@@ -1,18 +1,22 @@
-import {useTheme, HStack, VStack, IconButton, Heading, Text} from 'native-base'
-import {SignOut} from 'phosphor-react-native'
+import {useTheme, HStack, VStack, IconButton, Heading, Text, FlatList, Center} from 'native-base'
+import {ChatTeardropText, SignOut} from 'phosphor-react-native'
 import { useState } from 'react'
 
 import Logo from '../assets/logo_secondary.svg'
+import { Button } from '../Components/Button'
+import { Order, OrderProps } from '../Components/Order'
 import { SecondaryButton } from '../Components/SecondaryButton'
 
 export function Dashboard() {
   const { colors } = useTheme()
 
   const [filter, setFilter] = useState<'open' | 'closed'>('open')
+  const [orders, setOrders] = useState<OrderProps[]>([])
 
   function handleSetFilter(value: 'open' | 'closed') {
     setFilter(value)
   }
+
 
   return(
     <VStack flex={1} bg="gray.700">
@@ -31,7 +35,7 @@ export function Dashboard() {
         />
       </HStack>
 
-      <VStack px={6} py={8}>
+      <VStack px={6} py={8} flex={1} justifyContent="space-between">
         <HStack mb={4} alignItems="center" justifyContent="space-between">
           <Heading
           fontFamily="heading" fontSize="lg" color="gray.100">
@@ -42,24 +46,46 @@ export function Dashboard() {
           </Text>
         </HStack>
 
-        <HStack alignItems="center" justifyContent="space-between">
+        <HStack mb={8} alignItems="center" justifyContent="space-between">
           <SecondaryButton
-          title="Em Andamento"
+          title="Opened"
           type='open'
           onPress={()=> handleSetFilter('open')}
           isActive={filter === 'open'}
           />
 
           <SecondaryButton
-          title="Finalizados"
+          title="Closed"
           type='closed'
           onPress={()=> handleSetFilter('closed')}
           isActive={filter === 'closed'}
           />
         </HStack>
 
+        <FlatList
+        mb={4}
+        data={orders}
+        keyExtractor={item => item.id}
+        renderItem={({item}) => <Order data={item} />}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{paddingBottom: 100}}
+        ListEmptyComponent={() => (
+          <Center>
+            <ChatTeardropText color={colors.gray[300]} size={60}/>
+            <Text
+            pt={6}
+            textAlign="center"
+            fontSize="lg"
+            color="gray.300"
+            >
+              You have {'\n'} no {filter === 'open' ? 'opened' : 'closed'} orders.
+              </Text>
+          </Center>
+        )}
+        />
+
+        <Button title="New Order"/>
       </VStack>
-      
     </VStack>
   )
 }
