@@ -12,6 +12,7 @@ export function Button({title, ...rest}: Props ) {
     h={14}
     w="100%"
     py={4}
+    _pressed={{bg: "green.500"}}
     {...rest}
     >
       <Heading

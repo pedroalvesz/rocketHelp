@@ -21,23 +21,23 @@ export function SignIn() {
       </Heading>
 
       <Input
+      mb={4}
       placeholder="E-mail"
       InputLeftElement={
         <Icon 
         as={<Envelope color={colors.gray[300]} />}
         ml={4}
         />}
-      mb={4}
       />
 
       <Input
+      mb={8}
       placeholder="Password"
       InputLeftElement={
         <Icon 
         as={<Key color={colors.gray[300]} />}
         ml={4} 
         />}
-      mb={8}
       secureTextEntry
       />
 
