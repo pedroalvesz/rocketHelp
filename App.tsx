@@ -13,6 +13,7 @@ import { Loading } from './src/Components/Loading';
 import { SignIn } from './src/screen/Signin';
 
 export default function App() {
+  //UseFonts retorna se as fontes carregaram ou não em boolean
   const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold})
 
   return (
@@ -27,3 +28,6 @@ export default function App() {
   );
 }
 
+//NativeBase
+//react-native-svg-transformer
+//Prosphor Icons
