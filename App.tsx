@@ -11,6 +11,7 @@ import {
 import { THEME } from './src/styles/theme';
 import { Loading } from './src/Components/Loading';
 import { SignIn } from './src/screen/Signin';
+import { Dashboard } from './src/screen/Dashboard';
 
 export default function App() {
   //UseFonts retorna se as fontes carregaram ou não em boolean
@@ -23,7 +24,7 @@ export default function App() {
       backgroundColor='transparent'
       translucent
       />
-      { fontsLoaded ? <SignIn /> : <Loading/> }
+      { fontsLoaded ? <Dashboard /> : <Loading/> }
     </NativeBaseProvider>
   );
 }
