@@ -10,10 +10,7 @@ import {
 
 import { THEME } from './src/styles/theme';
 import { Loading } from './src/Components/Loading';
-import { SignIn } from './src/screen/Signin';
-import { Dashboard } from './src/screen/Dashboard';
-import { Register } from './src/screen/Register';
-import { Details } from './src/screen/Details';
+import { Routes } from './src/routes';
 
 export default function App() {
   //UseFonts retorna se as fontes carregaram ou não em boolean
@@ -26,11 +23,13 @@ export default function App() {
       backgroundColor='transparent'
       translucent
       />
-      { fontsLoaded ? <Details status="open"/> : <Loading/> }
+      { fontsLoaded ? <Routes/>: <Loading/> }
     </NativeBaseProvider>
   );
 }
 
+
+//<Details status="open"/>
 //NativeBase
 //react-native-svg-transformer
 //Prosphor Icons

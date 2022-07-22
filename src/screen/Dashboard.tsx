@@ -1,6 +1,8 @@
-import {useTheme, HStack, VStack, IconButton, Heading, Text, FlatList, Center} from 'native-base'
-import {ChatTeardropText, SignOut} from 'phosphor-react-native'
 import { useState } from 'react'
+import {useTheme, HStack, VStack, IconButton, Heading, Text, FlatList, Center} from 'native-base'
+import { useNavigation } from '@react-navigation/native'
+import {ChatTeardropText, SignOut} from 'phosphor-react-native'
+
 
 import Logo from '../assets/logo_secondary.svg'
 import { Button } from '../Components/Button'
@@ -9,6 +11,8 @@ import { SecondaryButton } from '../Components/SecondaryButton'
 
 export function Dashboard() {
   const { colors } = useTheme()
+  const navigation = useNavigation()
+
 
   const [filter, setFilter] = useState<'open' | 'closed'>('open')
   const [orders, setOrders] = useState<OrderProps[]>([])
@@ -17,6 +21,13 @@ export function Dashboard() {
     setFilter(value)
   }
 
+  function handleNewOrder() {
+    navigation.navigate('new')
+  }
+
+  function handleShowDetails(orderId: string) {
+    navigation.navigate('details', {orderId})
+  }
 
   return(
     <VStack flex={1} bg="gray.700">
@@ -66,7 +77,7 @@ export function Dashboard() {
         mb={4}
         data={orders}
         keyExtractor={item => item.id}
-        renderItem={({item}) => <Order data={item} />}
+        renderItem={({item}) => <Order data={item} onPress={() => handleShowDetails(item.id)} />}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{paddingBottom: 100}}
         ListEmptyComponent={() => (
@@ -84,7 +95,9 @@ export function Dashboard() {
         )}
         />
 
-        <Button title="New Order"/>
+        <Button
+        onPress={handleNewOrder}
+        title="New Order"/>
       </VStack>
     </VStack>
   )
