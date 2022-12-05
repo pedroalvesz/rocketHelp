@@ -1,17 +1,27 @@
 import { Divider, Heading, HStack, Text, useTheme, VStack } from 'native-base'
 import { CircleWavyCheck, ClipboardText, DesktopTower, Hourglass } from 'phosphor-react-native'
+import { useRoute } from '@react-navigation/native'
+
+
 import { Button } from '../Components/Button'
 import { Header } from '../Components/Header'
 
+interface RouteParams {
+  orderId: string
+}
 
 interface Props {
   status: 'open' | 'closed'
 }
 
-export function Details({status, ...rest}: Props) {
+export function Details({status}: Props) {
 
   const {colors} = useTheme()
   const statusColor = status === 'open' ? colors.secondary[700] : colors.green[300];
+
+  const route = useRoute()
+
+  const {orderId} = route.params as RouteParams
 
   return(
     <VStack flex={1} bg="gray.700" pb={8}>
